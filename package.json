@@ -2,5 +2,28 @@
   "dependencies": {
     "webpack": "^5.50.0",
     "webpack-cli": "^4.8.0"
-  }
+  },
+  "name": "todo_list",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "css-loader": "^6.2.0",
+    "style-loader": "^3.2.1",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luke2220/todo_list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Luke2220/todo_list/issues"
+  },
+  "homepage": "https://github.com/Luke2220/todo_list#readme",
+  "description": ""
 }
