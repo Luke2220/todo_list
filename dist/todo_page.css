@@ -1,6 +1,11 @@
+body{
+    margin:0;
+}
+
 .main{
     display:grid;
     grid-template-columns: 25% 1fr;
+    min-height:100%;
 }
 
 
@@ -15,4 +20,9 @@
     flex-direction: column;
     margin-left:10px;
 
+}
+
+.todo-list p{
+    float:left;
+    margin:0;
 }

@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/todo.html',
+    entry: './src/add_projects.js',
     output: {
         filename :'main.js',
         path: path.resolve(__dirname, 'dist'),
