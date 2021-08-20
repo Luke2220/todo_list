@@ -7,8 +7,9 @@ const projectManager = (() => {
     const getList = () => projectList;
 
     const addProject = (name,priority,dueDate,desc) =>{
-        projectList.push(projects(name,priority,dueDate,desc))
-        console.log(projectList);
+        let newP = projects(name,priority,dueDate,desc);
+        projectList.push(newP);
+        return newP;
     }
 
     const FindProject = (project) =>{
@@ -26,6 +27,6 @@ const projectManager = (() => {
             }
         })
     }
-    return {addProject,removeProject,FindProject};
+    return {addProject,removeProject,FindProject,getList};
 })();
 export{projectManager};

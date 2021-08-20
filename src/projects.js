@@ -11,7 +11,7 @@ const projects = (name,priority,dueDate,desc) => {
         dueDate = _dueDate;
         desc = _desc;
     }
-    return {editProject, getName, getPriority}
+    return {editProject, getName, getPriority,getDate,getDesc}
 }
 
 const todo = (name,priority,dueDate,desc) =>{
