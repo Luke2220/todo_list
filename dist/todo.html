@@ -13,14 +13,14 @@
             <section class='projects left-panel'>
                 <h2>Projects:</h2>
                 <button class='addProject'>+Add Project</button>
-                <div class='projectFlex'> 
-                    <section class='visibleForm'>
-                        <form class='projectForm'>     
+                <div class='projectList flexList'> 
+                    <section>
+                        <form class='projectForm visibleForm'>     
                             <label for='title'>Title:</label>           
                             <input type='text' name='title'>
-                           <label for='title'>Description:</label>
+                           <label for='desc'>Description:</label>
                             <input type='text' name='desc'>
-                            <label for='title'>Due-Date:</label>
+                            <label for='dueDate'>Due-Date:</label>
                             <input type='text' name='dueDate'>
                            
 
@@ -38,10 +38,26 @@
             <section class='todos'>
                 <div class='todo-list'>    
                     <h2>Todos:</h2>
-                    <div>
-                        <p>Example</p>
-                        <button>Edit todo</button>
-                    </div>
+                    <button class='addTodo'>+Add Todo</button>
+                    <section class='todoList flexList'>
+                        <form class='todoForm visibleForm'>     
+                            <label for='title'>Title:</label>           
+                            <input type='text' name='title'>
+                           <label for='desc'>Description:</label>
+                            <input type='text' name='desc'>
+                            <label for='dueDate'>Due-Date:</label>
+                            <input type='text' name='dueDate'>
+                           
+
+                            <input type='radio' name='priority' id='low'>
+                            <label for='low'>Low</label>
+                            <input type='radio' name='priority' id='med'>
+                            <label for='low'>Medium</label>
+                            <input type='radio' name='priority' id='high'>
+                            <label for='low'>High</label>
+                            <input type='submit' value='Save' class='todoSave'>
+                        </form>
+                    </section>
                 </div>
             </section>
         </section>

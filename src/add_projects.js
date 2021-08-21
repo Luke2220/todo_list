@@ -1,36 +1,63 @@
 import {projectManager} from './project_manager';
 
 const newProjectBtn = document.getElementsByClassName('addProject')[0];
-const projectContainer = document.getElementsByClassName('projectFlex')[0];
-const projectForm = document.getElementsByClassName('visibleForm')[0];
+const newTodoBtn = document.getElementsByClassName('addTodo')[0];
+const projectContainer = document.getElementsByClassName('projectList')[0];
+const todoContainer = document.getElementsByClassName('todoList')[0];
+const projectForm = document.getElementsByClassName('projectForm')[0];
+const todoForm = document.getElementsByClassName('todoForm')[0];
 const projectSaveBtn = document.getElementsByClassName('projectSave')[0];
-console.log(projectSaveBtn);
+const todoSaveBtn = document.getElementsByClassName('todoSave')[0];
+
+let selectedProject;
+
 newProjectBtn.addEventListener('click',() => {openForm(projectForm)});
+newTodoBtn.addEventListener('click',() => {openForm(todoForm)});
 
 projectSaveBtn.addEventListener('click',(event) => 
 {event.preventDefault();
     addProjectDom();})
+todoSaveBtn.addEventListener('click',(event) => 
+{event.preventDefault();
+    addTodoDom(selectedProject);})
 
 function addProjectDom(){ 
-    let formdata = new FormData(document.getElementsByClassName('projectForm')[0]);
+    let formdata = new FormData(projectForm);
     const newProject = projectManager.addProject(formdata.get('title'),formdata.get('priority'),
     formdata.get('dueDate'),formdata.get('desc'));
 
-        let div = document.createElement('div');
+       addDomInfo(newProject,projectForm,projectContainer);
+}
+
+function addTodoDom(project){ 
+    if (project != null)
+    {
+        let formdata = new FormData(todoForm);
+        const newTodo = project.addTodo(formdata.get('title'),formdata.get('priority'),
+        formdata.get('dueDate'),formdata.get('desc'));
+
+        addDomInfo(newTodo,todoForm,todoContainer);
+    }
+}
+
+
+function addDomInfo(project,form,domContainer){
+    console.log(project);
+       let div = document.createElement('div');
 
         let title = document.createElement('p');
-        title.textContent = newProject.getName();
+        title.textContent = project.getName();
 
         let detailednfo = document.createElement('div'); 
         detailednfo.classList.add('visibleForm');
 
-        title.addEventListener('click',()=>{openProject(newProject,detailednfo)})
+        title.addEventListener('click',()=>{openProject(project,detailednfo)})
 
         let desc = document.createElement('p');
-        desc.textContent = newProject.getDesc();
+        desc.textContent = project.getDesc();
 
         let dueDate = document.createElement('p');
-        dueDate.textContent = newProject.getDate();
+        dueDate.textContent = project.getDate();
 
         let editbtn = document.createElement('button');
 
@@ -40,12 +67,12 @@ function addProjectDom(){
         div.appendChild(title);
         div.appendChild(detailednfo);
         div.appendChild(editbtn);
-        projectContainer.appendChild(div);
-        openForm(projectForm);
+        domContainer.appendChild(div);
+        openForm(form);
 }
 
 function openProject(project,info){
-    
+    selectedProject = project;
     info.classList.toggle('visibleForm');
 }
 

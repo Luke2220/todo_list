@@ -15,7 +15,7 @@ body{
     background-color:aquamarine;
 }
 
-.project-flex{
+.flexList{
     display:flex;
     flex-direction: column;
     margin-left:10px;
