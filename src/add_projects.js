@@ -1,5 +1,5 @@
 import { projectManager } from "./project_manager";
-import {addEditForm, getFormData} from "./edit_form";
+import {addEditForm} from "./edit_form";
 
 const newProjectBtn = document.getElementsByClassName("addProject")[0];
 const newTodoBtn = document.getElementsByClassName("addTodo")[0];
@@ -19,14 +19,16 @@ newTodoBtn.addEventListener("click", () => {
 
 projectSaveBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  addProjectDom(getProjectFormData(), projectForm, projectContainer, todoContainer);
+  addProjectDom(createNewProject(), projectForm, projectContainer, todoContainer);
 });
 todoSaveBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  addTodoDom(getTodoFormData(projectManager.selectedProject, todoForm, todoContainer));
+  if (projectManager.selectedProject != null) {
+    addTodoDom(createNewTodo(projectManager.selectedProject), todoForm, todoContainer);
+  }
 });
 
-function getProjectFormData() {
+function createNewProject() {
   let formdata = new FormData(projectForm);
   const newProject = projectManager.addProject(
     formdata.get("title"),
@@ -38,8 +40,7 @@ function getProjectFormData() {
 return newProject;  
 }
 
-function getTodoFormData(selectedProject) {
-  if (selectedProject != null) {
+function createNewTodo(selectedProject) {
     let formdata = new FormData(todoForm);
     const newTodo = selectedProject.addTodo(
       formdata.get("title"),
@@ -48,19 +49,19 @@ function getTodoFormData(selectedProject) {
       formdata.get("desc")
     );
       return newTodo;
-    
-  }
 }
 
 function addProjectDom(project, form, domContainer, containerToClear) {
   let div = document.createElement("div");
+  project.ourDiv = div;
 
   let title = document.createElement("p");
   title.textContent = project.getName();
+  title.classList.add('title');
 
   let detailedInfo = document.createElement("div");
   detailedInfo.classList.add("visibleForm", "info");
-  project.ourInfoDiv = detailedInfo;
+ 
 
   title.addEventListener("click", () => {
     clearDomChildren(containerToClear);
@@ -70,15 +71,17 @@ function addProjectDom(project, form, domContainer, containerToClear) {
 
   let desc = document.createElement("p");
   desc.textContent = project.getDesc();
+  desc.classList.add('desc');
 
   let dueDate = document.createElement("p");
   dueDate.textContent = project.getDate();
+  dueDate.classList.add('dueDate');
 
   let editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
 
   editBtn.addEventListener("click", () =>{
-    addEditForm(div,project.editProject)   
+    addEditForm(div,project);   
    });
     
     
@@ -88,6 +91,8 @@ function addProjectDom(project, form, domContainer, containerToClear) {
   deleteBtn.addEventListener("click", () => {
     projectManager.removeProject(project);
     removeDom(div);
+  
+    removeAllChildNodes(todoContainer);
   });
 
   detailedInfo.appendChild(desc);
@@ -101,15 +106,18 @@ function addProjectDom(project, form, domContainer, containerToClear) {
   toggleVisible(form);
 }
 
+
 function addTodoDom(todo, form, domContainer) {
   let div = document.createElement("div");
+  todo.ourDiv = div;
 
   let title = document.createElement("p");
   title.textContent = todo.getName();
+  title.classList.add('title');
 
   let detailedInfo = document.createElement("div");
   detailedInfo.classList.add("visibleForm", "info");
-  todo.ourInfoDiv = detailedInfo;
+ 
 
 
   title.addEventListener("click", () => {
@@ -118,12 +126,17 @@ function addTodoDom(todo, form, domContainer) {
 
   let desc = document.createElement("p");
   desc.textContent = todo.getDesc();
+  desc.classList.add('desc');
 
   let dueDate = document.createElement("p");
   dueDate.textContent = todo.getDate();
+  dueDate.classList.add('dueDate');
 
   let editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
+  editBtn.addEventListener('click', () =>{
+    addEditForm(div,todo);  
+  })
 
   let deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
@@ -143,13 +156,21 @@ function addTodoDom(todo, form, domContainer) {
   toggleVisible(form);
 }
 
+function removeAllChildNodes(parent)
+{
+  while (parent.firstChild) {
+    removeDom(parent.firstChild);
+  }
+}
+
 function removeDom(node){
   node.remove();
 }
 
 function openProject(project) {
   if (projectManager.selectedProject != null) {
-    toggleVisible(projectManager.selectedProject.ourInfoDiv);
+    const info = projectManager.selectedProject.ourDiv.getElementsByClassName('info')[0];
+    toggleVisible(info);
   }
 
   projectManager.selectedProject = project;

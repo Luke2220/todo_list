@@ -1,5 +1,10 @@
-function addEditForm(div,submitFunction){
+function addEditForm(div,projectToEdit){
+    if (document.getElementsByClassName('editForm').length <= 0) {
     let editForm = document.createElement('form');
+    editForm.classList.add('editForm');
+
+    const editTitle = document.createElement('p');
+    editTitle.textContent = 'Edit';
 
     let titleBox = document.createElement('input');
     titleBox.setAttribute('type','text');
@@ -13,7 +18,7 @@ function addEditForm(div,submitFunction){
 
     let dateBox = document.createElement('input');
     dateBox.setAttribute('type','text');
-    dateBox.setAttribute('name','date');
+    dateBox.setAttribute('name','dueDate');
   
 
     let radioLow = document.createElement('input');
@@ -39,21 +44,45 @@ function addEditForm(div,submitFunction){
     submitBtn.addEventListener('click',(e) => {
         e.preventDefault();
         const formData = getFormData(editForm);
-        submitFunction( formData.get("title"),
+        projectToEdit.editProject( formData.get("title"),
         formData.get("priority"),
         formData.get("dueDate"),
         formData.get("desc"));
-    })
+        updateDom(projectToEdit);
+        removeForm(editForm);
+    });
 
+    
+    editForm.appendChild(createBR());
+    editForm.appendChild(createLabel('Edit Form:', 'title'));
+    editForm.appendChild(createBR());
     editForm.appendChild(titleBox);
+    editForm.appendChild(createBR());
+    editForm.appendChild(createLabel('Edit Description:', 'desc'));
+    editForm.appendChild(createBR());
     editForm.appendChild(descBox);
+    editForm.appendChild(createBR());
+    editForm.appendChild(createLabel('Edit Due-Date:', 'dueDate'));
+    editForm.appendChild(createBR());
     editForm.appendChild(dateBox);
+    editForm.appendChild(createBR());
     editForm.appendChild(radioLow);
-    editForm.appendChild(radioMed);
+    editForm.appendChild(createLabel('Low', 'dueDate'));  
+    editForm.appendChild(radioMed); 
+    editForm.appendChild(createLabel('High', 'dueDate'));
     editForm.appendChild(radioHigh);
+    editForm.appendChild(createLabel('Medium', 'dueDate'));
+    editForm.appendChild(createBR());
     editForm.appendChild(submitBtn);
     div.appendChild(editForm);
     return editForm;
+    } else {
+        removeForm(document.getElementsByClassName('editForm')[0]);
+    }
+}
+
+function removeForm(form){
+    form.remove();
 }
 
 function getFormData(form){
@@ -61,5 +90,22 @@ function getFormData(form){
     return formdata;
 }
 
+function createBR(){
+    return document.createElement('br');
+}
+
+function createLabel(text, ele){
+    const label = document.createElement('label');
+    label.textContent = text;
+    label.setAttribute('name', ele);
+    return label;
+    
+}
+
+function updateDom(project){
+    project.ourDiv.getElementsByClassName('title')[0].textContent = project.getName();
+    project.ourDiv.getElementsByClassName('desc')[0].textContent = project.getDesc();
+    project.ourDiv.getElementsByClassName('dueDate')[0].textContent = project.getDate();
+  }
 
 export {addEditForm, getFormData}
