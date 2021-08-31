@@ -1,5 +1,6 @@
 import { projectManager } from "./project_manager";
 import {addEditForm} from "./edit_form";
+import {priorityColor} from "./priority-color";
 
 const newProjectBtn = document.getElementsByClassName("addProject")[0];
 const newTodoBtn = document.getElementsByClassName("addTodo")[0];
@@ -58,6 +59,9 @@ function addProjectDom(project, form, domContainer, containerToClear) {
   let title = document.createElement("p");
   title.textContent = project.getName();
   title.classList.add('title');
+  project.ourTitleP = title;
+  
+  priorityColor.changeColorPri(project.ourTitleP,project.getPriority());
 
   let detailedInfo = document.createElement("div");
   detailedInfo.classList.add("visibleForm", "info");
@@ -114,6 +118,10 @@ function addTodoDom(todo, form, domContainer) {
   let title = document.createElement("p");
   title.textContent = todo.getName();
   title.classList.add('title');
+  todo.ourTitleP = title;
+
+priorityColor.changeColorPri(todo.ourTitleP,todo.getPriority());
+
 
   let detailedInfo = document.createElement("div");
   detailedInfo.classList.add("visibleForm", "info");

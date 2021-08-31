@@ -1,3 +1,5 @@
+import {priorityColor} from "./priority-color";
+
 function addEditForm(div,projectToEdit){
     if (document.getElementsByClassName('editForm').length <= 0) {
     let editForm = document.createElement('form');
@@ -25,18 +27,20 @@ function addEditForm(div,projectToEdit){
     radioLow.setAttribute('type','radio');
     radioLow.setAttribute('name','priority');
     radioLow.setAttribute('id','low');
+    radioLow.setAttribute('value','low');
     
 
     let radioMed = document.createElement('input');
     radioMed.setAttribute('type','radio');
     radioMed.setAttribute('name','priority');
     radioMed.setAttribute('id','med');
-  
+    radioMed.setAttribute('value','Med');
 
     let radioHigh = document.createElement('input');
     radioHigh.setAttribute('type','radio');
     radioHigh.setAttribute('name','priority');
     radioHigh.setAttribute('id','high');
+    radioHigh.setAttribute('value','High');
 
     let submitBtn = document.createElement('input');
     submitBtn.setAttribute('type','submit');
@@ -48,13 +52,14 @@ function addEditForm(div,projectToEdit){
         formData.get("priority"),
         formData.get("dueDate"),
         formData.get("desc"));
+        priorityColor.changeColorPri(projectToEdit.ourTitleP,projectToEdit.getPriority());
         updateDom(projectToEdit);
         removeForm(editForm);
     });
 
     
     editForm.appendChild(createBR());
-    editForm.appendChild(createLabel('Edit Form:', 'title'));
+    editForm.appendChild(createLabel('Edit Title:', 'title'));
     editForm.appendChild(createBR());
     editForm.appendChild(titleBox);
     editForm.appendChild(createBR());
