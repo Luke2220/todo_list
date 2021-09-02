@@ -1,4 +1,4 @@
-import {priorityColor} from "./priority-color";
+import {priorityColor} from "../priority-color";
 
 function addEditForm(div,projectToEdit){
     if (document.getElementsByClassName('editForm').length <= 0) {

@@ -14,7 +14,6 @@ const projects = (name, priority, dueDate, desc) => {
 
   const ourTodos = [];
   const ourDiv = null;
-  const ourTitleP = null;
 
   const addTodo = (name, priority, dueDate, desc) => {
     const newTodo = todo(name, priority, dueDate, desc);

@@ -4,19 +4,19 @@ const priorityColor = (() => {
     const medPriorityColor = '#309121';
     const highPriorityColor = '#db3425';
 
-    function changeColorPri(element,priority){
+    function getColorPriority(priority){
         if (priority == 'low'){
-            element.style.color = lowPriorityColor;
+            return lowPriorityColor;
           } 
           else if (priority == 'med'){
-            element.style.color = medPriorityColor;
+            return medPriorityColor;
           }
           else{
-            element.style.color = highPriorityColor;
+            return highPriorityColor;
           };
         
     }
-    return {changeColorPri}
+    return {getColorPriority}
 })();
 
 export {priorityColor}

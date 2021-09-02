@@ -39,9 +39,12 @@
                     </section>
             </section>
             <section class='todos bump-right'>
-                <div class='todo-list'>    
-                    <h2>Todos:</h2>
-                    <button class='addTodo'>+Add Todo</button>
+                <div class='todo-list'>   
+                    <div class='border-bottom'>
+                        <h2>Todos:</h2>
+                        <button class='addTodo'>+Add Todo</button>
+      
+                    </div> 
                     <section class='flexList'>
                         <form class='todoForm visibleForm'>     
                             <label for='title'>Title:</label> <br>        
@@ -52,11 +55,11 @@
                             <input type='text' name='dueDate'> <br> 
                            
 
-                            <input type='radio' name='priority' id='low'>
+                            <input type='radio' name='priority' id='low' value='low'>
                             <label for='low'>Low</label>
-                            <input type='radio' name='priority' id='med'>
+                            <input type='radio' name='priority' id='med' value='med'>
                             <label for='low'>Medium</label>
-                            <input type='radio' name='priority' id='high'>
+                            <input type='radio' name='priority' id='high' value='high'>
                             <label for='low'>High</label> <br> 
                             <input type='submit' value='Save' class='todoSave'>
                         </form>
