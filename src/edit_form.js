@@ -45,6 +45,7 @@ function addEditForm(div,projectToEdit){
     let submitBtn = document.createElement('input');
     submitBtn.setAttribute('type','submit');
     submitBtn.setAttribute('value','Save');
+    submitBtn.classList.add('editSave');
     submitBtn.addEventListener('click',(e) => {
         e.preventDefault();
         const formData = getFormData(editForm);

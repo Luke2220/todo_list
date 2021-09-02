@@ -92,6 +92,7 @@ function addProjectDom(project, form, domContainer, containerToClear) {
 
   let deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
+  deleteBtn.classList.add('bump-right');
   deleteBtn.addEventListener("click", () => {
     projectManager.removeProject(project);
     removeDom(div);
@@ -120,6 +121,13 @@ function addTodoDom(todo, form, domContainer) {
   title.classList.add('title');
   todo.ourTitleP = title;
 
+  const can = document.createElement('canvas');
+  can.setAttribute('width', '40');
+  can.setAttribute('height', '40');
+  can.classList.add('floatLeft');
+  drawTriangle(can,'red','red');
+
+
 priorityColor.changeColorPri(todo.ourTitleP,todo.getPriority());
 
 
@@ -147,6 +155,7 @@ priorityColor.changeColorPri(todo.ourTitleP,todo.getPriority());
   })
 
   let deleteBtn = document.createElement("button");
+  deleteBtn.classList.add('bump-right');
   deleteBtn.textContent = "Delete";
   deleteBtn.addEventListener("click", () => {
     projectManager.selectedProject.deleteTodo(todo.getName());
@@ -156,7 +165,8 @@ priorityColor.changeColorPri(todo.ourTitleP,todo.getPriority());
   detailedInfo.appendChild(desc);
   detailedInfo.appendChild(dueDate);
 
-  div.appendChild(title);
+  div.appendChild(title); 
+  div.appendChild(can);
   div.appendChild(detailedInfo);
   div.appendChild(editBtn);
   div.appendChild(deleteBtn);
@@ -198,4 +208,23 @@ function clearDomChildren(element) {
 
 function toggleVisible(element) {
   element.classList.toggle("visibleForm");
+}
+
+function drawTriangle(canvas, colorOutline, colorFill){
+  if (canvas.getContext)
+  {
+    const context = canvas.getContext('2d');
+    context.beginPath();
+    context.moveTo(20, 30);
+    context.lineTo(10,10);
+    context.lineTo(30,10);
+    context.closePath();
+
+    context.lineWidth = 5;
+    context.strokeStyle = colorOutline;
+    context.stroke();
+
+    context.fillStyle = colorFill;
+    context.fill();
+  }
 }
